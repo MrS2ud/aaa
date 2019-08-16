@@ -132,11 +132,7 @@ client.on("message", message => {
        .addField('!support', `سيرفر الدعم`)
        .setFooter('======================================================')
        .setFooter('كل أسبوع يتم تجديد الأوامر ,')
-       .addField('-play', `لتسمع الاغنيه`)
-       .addField('-غرد', `للتغريد`)
-       .addField('-embed', `البوت يكرر الكلام الي قلته ب امبد`)
-     .addField('-cat', `يجبلك صورة بسه`)
-   message.author.send({embed});
+       message.author.send({embed});
  
   }
  });
