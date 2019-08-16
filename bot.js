@@ -51,4 +51,43 @@ Discord API: ${client.ping.toFixed(0)} ms`);
 });
 
 
+client.on('message', function(msg) {
+        let verifLevels = ["None", "Low", "Medium", "(╯°□°）╯︵  ┻━┻", "┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻"];
+        let region = {
+            "brazil": "Brazil",
+            "eu-central": "Central Europe",
+            "singapore": "Singapore",
+            "Russia": "Russia",
+            "us-central": "U.S. Central",
+            "sydney": "Sydney",
+            "us-east": "U.S. East",
+            "us-south": "U.S. South",
+            "us-west": "U.S. West",
+            "eu-west": "Western Europe",
+            "vip-us-east": "VIP U.S. East",
+            "london": "London",
+            "amsterdam": "Amsterdam",
+            "hongkong": "Hong Kong"
+        };
+      
+          if (msg.content.startsWith(prefix + 'server')) {
+          if (!msg.guild) return message.reply('**Only Servers | :x:**')
+      console.log(`${msg.author.username} Has Ran Server Command`)
+          let embed = new Discord.RichEmbed()
+          .setColor('RANDOM')
+          .setThumbnail(msg.guild.iconURL)
+          .setTitle(`${msg.guild.name}`)
+          .addField('**[❖] Server Name **',`[** __${msg.guild.name}__ **]`,true)
+          .addField('**[❖] OwnerShip **',`**${msg.guild.owner}**`,true)
+          .addField('**[❖] Server ID **',`**${msg.guild.id}**`,true)
+          .addField('**[❖] Members Count **',`[** __${msg.guild.memberCount}__ **]`,true)
+          .addField('**[❖] Region **',`[** __${region[msg.guild.region]}__** ]`,true)
+          .addField('**[❖] Text Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
+          .addField('**[❖] Voice Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
+          .addField('**[❖] Created Server **',msg.guild.createdAt.toLocaleString())
+          msg.channel.send({embed:embed});
+        }
+      });
+
+
 client.login(process.env.BOT_TOKEN);
