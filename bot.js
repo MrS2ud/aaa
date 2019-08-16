@@ -139,7 +139,7 @@ client.on("message", message => {
 
 
 client.on('message', message => {let prefix = "!";
-if(message.content.startsWith(prefix + "news")) {
+if(message.content.startsWith(prefix + "sug")) {
       message.delete()
 
 const args = message.content.slice(prefix.length).trim().split(/ +/g);
