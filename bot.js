@@ -152,8 +152,8 @@ const args = message.content.slice(prefix.length).trim().split(/ +/g);
    .setDescription(`**${suggestMessage}**`)
    .setFooter(` Proposed : ${message.author.tag}`)
   
-       let suggests = message.guild.channels.find(ch => ch.name === "Suggestions");
-                   if (!suggests) return message.reply("يرجى صنع روم بأسم : Suggestions")
+       let suggests = message.guild.channels.find(ch => ch.name === "suggestions");
+                   if (!suggests) return message.reply("يرجى صنع روم بأسم : suggestions")
                suggests.send(suggestsEMBED);
 }
 })
