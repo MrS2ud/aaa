@@ -77,14 +77,14 @@ client.on('message', function(msg) {
           .setColor('RANDOM')
           .setThumbnail(msg.guild.iconURL)
           .setTitle(`${msg.guild.name}`)
-          .addField('**[❖] Server Name **',`[** __${msg.guild.name}__ **]`,true)
-          .addField('**[❖] OwnerShip **',`**${msg.guild.owner}**`,true)
-          .addField('**[❖] Server ID **',`**${msg.guild.id}**`,true)
-          .addField('**[❖] Members Count **',`[** __${msg.guild.memberCount}__ **]`,true)
-          .addField('**[❖] Region **',`[** __${region[msg.guild.region]}__** ]`,true)
-          .addField('**[❖] Text Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
-          .addField('**[❖] Voice Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
-          .addField('**[❖] Created Server **',msg.guild.createdAt.toLocaleString())
+          .addField('**Server Name **',`[** __${msg.guild.name}__ **]`,true)
+          .addField('**OwnerShip **',`**${msg.guild.owner}**`,true)
+          .addField('**Server ID **',`**${msg.guild.id}**`,true)
+          .addField('**Members Count **',`[** __${msg.guild.memberCount}__ **]`,true)
+          .addField('**Region **',`[** __${region[msg.guild.region]}__** ]`,true)
+          .addField('**Text Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
+          .addField('**Voice Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
+          .addField('**Created Server **',msg.guild.createdAt.toLocaleString())
           msg.channel.send({embed:embed});
         }
       });
