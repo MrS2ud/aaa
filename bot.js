@@ -145,7 +145,7 @@ if(message.content.startsWith(prefix + "sug")) {
 const args = message.content.slice(prefix.length).trim().split(/ +/g);
 
   var suggestMessage = args.slice(1).join(" ")
-  if(!suggestMessage) return message.reply("الرجاء وضع اقتراح")
+  if(!suggestMessage) return message.reply("Please make a suggestion")
   let suggestsEMBED = new Discord.RichEmbed()
    .setColor('#0028db')
    .setTitle(" Suggestion ! ")
