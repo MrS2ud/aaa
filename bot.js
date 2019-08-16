@@ -148,12 +148,12 @@ const args = message.content.slice(prefix.length).trim().split(/ +/g);
   if(!suggestMessage) return message.reply("الرجاء وضع اقتراح")
   let suggestsEMBED = new Discord.RichEmbed()
    .setColor('#0028db')
-   .setTitle(" !أقتراح جديد ")
+   .setTitle(" Suggestion ! ")
    .setDescription(`**${suggestMessage}**`)
-   .setFooter(` المقترح : ${message.author.tag}`)
+   .setFooter(` Proposed : ${message.author.tag}`)
   
-       let suggests = message.guild.channels.find(ch => ch.name === "الاقتراحات");
-                   if (!suggests) return message.reply("يرجى صنع روم بأسم : الاقتراحات")
+       let suggests = message.guild.channels.find(ch => ch.name === "Suggestions");
+                   if (!suggests) return message.reply("يرجى صنع روم بأسم : Suggestions")
                suggests.send(suggestsEMBED);
 }
 })
