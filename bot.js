@@ -131,7 +131,10 @@ client.on("message", message => {
      .addField('!ping', `يقلك كم بنق البوت`)
        .addField('!support', `سيرفر الدعم`)
        .setFooter('======================================================')
-       .setFooter('كل أسبوع يتم تجديد الأوامر ,')
+       .setFooter('https://discordapp.com/api/oauth2/authorize?client_id=611606064391258142&permissions=8&scope=bot,')
+       .setFooter('لأدخال البوت لسيرفركم')
+       .setFooter('https://discord.gg/TeJQeuW')
+       .setFooter('Support Bots')
        message.author.send({embed});
  
   }
