@@ -231,8 +231,8 @@ if(message.content.split(' ')[0] == '!bcowner1') {
                  message.channel.sendEmbed(embed);
         message.guild.members.forEach(m => {
             var bc = new Discord.RichEmbed()
-.addField('**● Sender  :**', `*** → ${message.author.username}#${message.author.discriminator}***`)
-            .addField('***● Server  :***', `*** → ${message.guild.name}***`)               
+.addField('**● Sender  :**', `**__ → ${message.author.username}#${message.author.discriminator}__**`)
+            .addField('**● Server  :**', `**__ → ${message.guild.name}__**`)               
     .setColor('#ff0000')
                  .addField('ّ', args)
             m.send(``,{embed: bc});
