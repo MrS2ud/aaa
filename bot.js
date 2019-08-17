@@ -124,8 +124,8 @@ client.on("message", message => {
        .setFooter('======================================================')
        .setFooter('اوامر الاعضاء')
        .addField('!bot', `لاضافة البوت الى سيرفرك`)
-     .addField('!roles', `لمعرفة الرتب الي في السيرفر`)
-       .addField('!2avatar', `الافتار عن طريق المنشن`)
+     .addField('!sug', `لعمل أقتراح`)
+       .addField('!avatar', `الافتار عن طريق المنشن`)
      .addField('!id', `يجبلك الملف الشخصي حقك`)
      .addField('!clear', `البوت يمسح  100 رسايل`)
      .addField('!ping', `يقلك كم بنق البوت`)
@@ -135,6 +135,15 @@ client.on("message", message => {
        message.author.send({embed});
  
   }
+ });
+
+
+client.on('ready', () => {
+  client.user.setPresence('dnd')
+    client.user.setGame(`#help | Servers: ${client.guilds.size} `, "https://www.twitch.tv/Jan0oo")
+	console.log(`Logged In As ${client.user.tag}!`);
+	console.log('Ready! Go,');
+	console.log('By RG, Jan0ooo.#0001')
  });
 
 
@@ -157,6 +166,20 @@ const args = message.content.slice(prefix.length).trim().split(/ +/g);
                suggests.send(suggestsEMBED);
 }
 })
+
+
+client.on('message', message => {
+            if (message.content.startsWith("$botinfo")) {
+     let embed = new Discord.RichEmbed()
+.addField(' عدد السيرفرات التي بها',`[${client.guilds.size}]  `)
+.addField(' عدد الاعضاء ',` [${client.users.size}] `)
+.addField('الغرف ',`[${client.channels.size}]`) 
+.addField(' البنق ',`[${Date.now() - message.createdTimestamp}]`) 
+.addField(' Devolope By fox ')
+.setColor('#7d2dbe')
+  message.channel.sendEmbed(embed);
+    }
+});
 
 
 client.login(process.env.BOT_TOKEN);
