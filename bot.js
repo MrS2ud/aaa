@@ -171,15 +171,24 @@ const args = message.content.slice(prefix.length).trim().split(/ +/g);
 client.on('message', message => {
             if (message.content.startsWith("$botinfo")) {
      let embed = new Discord.RichEmbed()
-.addField(' عدد السيرفرات التي بها',`[${client.guilds.size}]  `)
-.addField(' عدد الاعضاء ',` [${client.users.size}] `)
-.addField('الغرف ',`[${client.channels.size}]`) 
-.addField(' البنق ',`[${Date.now() - message.createdTimestamp}]`) 
-.addField(' Devolope By fox ')
-.setColor('#7d2dbe')
+.addField(' Server.s',`[${client.guilds.size}]  `)
+.addField(' Members ',` [${client.users.size}] `)
+.addField('Channel ',`[${client.channels.size}]`) 
+.addField(' Ping ',`[${Date.now() - message.createdTimestamp}]`) 
+.addField(' S2ud ')
+.setColor('#c21725')
   message.channel.sendEmbed(embed);
     }
 });
+
+
+client.on('ready', () => {
+  client.user.setPresence('dnd')
+    client.user.setGame(`#help | Servers: ${client.guilds.size} `, "https://www.twitch.tv/Jan0oo")
+	console.log(`Logged In As ${client.user.tag}!`);
+	console.log('Ready! Go,');
+	console.log('By RG, Jan0ooo.#0001')
+ });
 
 
 client.login(process.env.BOT_TOKEN);
