@@ -184,7 +184,7 @@ client.on('message', message => {
 
 client.on('ready', () => {
   client.user.setPresence('dnd')
-    client.user.setGame(`#help | Servers: ${client.guilds.size} `, "https://www.twitch.tv/Jan0oo")
+    client.user.setGame(`!help | S2ud ${client.guilds.size} `)
 	console.log(`Logged In As ${client.user.tag}!`);
 	console.log('Ready! Go,');
 	console.log('By RG, Jan0ooo.#0001')
