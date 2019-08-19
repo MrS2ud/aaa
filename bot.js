@@ -1,247 +1,171 @@
-const Discord = require("discord.js");
-
+const Discord = require('discord.js');
 const client = new Discord.Client();
-
-var prefix = "!";
-
+const canvas = require("canvas");
+const fs = require("fs"); 
+const Canvas = require("canvas");
+var prefix = "$";
 client.on('ready', () => {
-
-   console.log(`----------------`);
-
-      console.log(`Desert Bot- Script By : i1Suhaib`);
-
-        console.log(`----------------`);
-
-      console.log(`ON ${client.guilds.size} Servers '     Script By : i1Suhaib ' `);
-
-    console.log(`----------------`);
-
   console.log(`Logged in as ${client.user.tag}!`);
-
-client.user.setGame(`Dragon ✨ | !help `,"http://twitch.tv/S-F")
-
-client.user.setStatus("dnd")
-
+  client.user.setGame(`Style Bot | $help | V 0.0.1`);
+  client.user.setStatus("idle");
 });
 
 
+let profile = JSON.parse(fs.readFileSync("profile.json", "utf8"))
+client.on("message", message => {
+ 
+  if (message.author.bot) return;
+  if(!message.channel.guild)return;
+  if (!profile[message.author.id]) profile[message.author.id] = {
+    tite: 'User',
+    rep: 0,
+    reps: 'NOT YET',
+    lastDaily:'Not Collected',
+    level: 0,
+    points: 1,
+    credits: 250,
+  };
+ 
+ 
+fs.writeFile('profile.json', JSON.stringify(profile), (err) => {
+if (err) console.error(err);
+})
+});
+ 
 client.on('message', message => {
-   if (message.content === "!id") {
-   let embed = new Discord.RichEmbed()
-  .setColor("RANDOM")
-  .setThumbnail(message.author.avatarURL)
-  .addField("Name :",`${message.author.username}`, true)
-  .addField('Tag :',"#" +  message.author.discriminator, true)
-  .addField("ID :", message.author.id, true)
-  .addField("Create Accounit :", message.author.createdAt, true)
-     
-     
-  message.channel.sendEmbed(embed);
-    }
-});
-
-
-client.on('message', message =>{//ping
-if(message.content.startsWith(prefix  +  'ping'))  {
-let start = Date.now(); message.channel.send('pong').then(message => { 
-message.edit(`
-Discord API: ${client.ping.toFixed(0)} ms`);
-  });
-  }
-});
-
-
-client.on('message', function(msg) {
-        let verifLevels = ["None", "Low", "Medium", "(╯°□°）╯︵  ┻━┻", "┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻"];
-        let region = {
-            "brazil": "Brazil",
-            "eu-central": "Central Europe",
-            "singapore": "Singapore",
-            "Russia": "Russia",
-            "us-central": "U.S. Central",
-            "sydney": "Sydney",
-            "us-east": "U.S. East",
-            "us-south": "U.S. South",
-            "us-west": "U.S. West",
-            "eu-west": "Western Europe",
-            "vip-us-east": "VIP U.S. East",
-            "london": "London",
-            "amsterdam": "Amsterdam",
-            "hongkong": "Hong Kong"
-        };
-      
-          if (msg.content.startsWith(prefix + 'server')) {
-          if (!msg.guild) return message.reply('**Only Servers | :x:**')
-      console.log(`${msg.author.username} Has Ran Server Command`)
-          let embed = new Discord.RichEmbed()
-          .setColor('RANDOM')
-          .setThumbnail(msg.guild.iconURL)
-          .setTitle(`${msg.guild.name}`)
-          .addField('**Server Name **',`[** __${msg.guild.name}__ **]`,true)
-          .addField('**OwnerShip **',`**${msg.guild.owner}**`,true)
-          .addField('**Server ID **',`**${msg.guild.id}**`,true)
-          .addField('**Members Count **',`[** __${msg.guild.memberCount}__ **]`,true)
-          .addField('**Region **',`[** __${region[msg.guild.region]}__** ]`,true)
-          .addField('**Text Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'text').size}__** ]`,true)
-          .addField('**Voice Channels **',`[** __${msg.guild.channels.filter(m => m.type === 'voice').size}__ **]`,true)
-          .addField('**Created Server **',msg.guild.createdAt.toLocaleString())
-          msg.channel.send({embed:embed});
+ 
+    if(message.content.startsWith(prefix + 'rep')) {
+      if(!message.channel.guild) return;
+                    moment.locale('en');
+                  var getvalueof = message.mentions.users.first()
+                    if(!getvalueof) return message.channel.send(`**:mag: |  ${message.author.username}, the user could not be found.    **`);
+                       if(getvalueof.id == message.author.id) return message.channel.send(`**${message.author.username}, you cant give yourself a reputation !**`)
+    if(profile[message.author.id].reps != moment().format('L')) {
+            profile[message.author.id].reps = moment().format('L');
+            profile[getvalueof.id].rep = Math.floor(profile[getvalueof.id].rep+1);
+         message.channel.send(`** :up:  |  ${message.author.username} has given ${getvalueof} a reputation point!**`)
+        } else {
+         message.channel.send(`**:stopwatch: |  ${message.author.username}, you can raward more reputation  ${moment().endOf('day').fromNow()} **`)
         }
-      });
-
-
-client.on("message", message => {
-    var prefix = "!";
-            var args = message.content.substring(prefix.length).split(" ");
-            if (message.content.startsWith(prefix + "clear")) {
- if (!args[1]) {
-                                let x5bz1 = new Discord.RichEmbed()
-                                .setDescription("#clear <number>")
-                                .setColor("#0000FF")
-                                message.channel.sendEmbed(x5bz1);
-                            } else {
-                            let messagecount = parseInt(args[1]);
-                            message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
-                                                          message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
-                            message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
-                            let x5bz2 = new Discord.RichEmbed()
-                                                            .setColor("#008000")
-                                .setDescription(":white_check_mark: | Delete " + args[1] + " Message!")
-                                                                                        message.delete("..");
-                                message.channel.sendEmbed(x5bz2);
-                            }
-                          }
+       }
+       fs.writeFile('profile.json', JSON.stringify(profile), (err) => {
+if (err) console.error(err);
+})
 });
-
-
-client.on("message", message => {
-  if (message.content === "!help") {
-   const embed = new Discord.RichEmbed()
-       .setColor("RANDOM")
-       .setFooter('© Premium Bot:heart: جميع الحقوق محفوظة 2017 لــبوت')
-       .setFooter('اوامر الادمنيه')
-     .addField('!server', `لمعرفة معلومات السيرفر`)
-       .setFooter('======================================================')
-       .setFooter('اوامر الاعضاء')
-       .addField('!bot', `لاضافة البوت الى سيرفرك`)
-     .addField('!sug', `لعمل أقتراح`)
-       .addField('!avatar', `الافتار عن طريق المنشن`)
-     .addField('!id', `يجبلك الملف الشخصي حقك`)
-     .addField('!clear', `البوت يمسح  100 رسايل`)
-     .addField('!ping', `يقلك كم بنق البوت`)
-       .addField('!support', `سيرفر الدعم`)
-       .setFooter('======================================================')
-       .setFooter('https://discordapp.com/api/oauth2/authorize?client_id=611606064391258142&permissions=8&scope=bot,')
-       .setFooter('لأدخال البوت لسيرفركم')
-       .setFooter('https://discord.gg/TeJQeuW')
-       .setFooter('Support Bots')
-       message.author.send({embed});
  
+client.on("message", (message) => {
+  let men = message.mentions.users.first()
+ 
+  if (message.author.bot) return;
+    if (message.author.id === client.user.id) return;
+    if(!message.channel.guild) return;
+if (message.content.startsWith(prefix + 'credit')) {
+  if(men) {
+    if (!profile[men.id]) profile[men.id] = {
+    lastDaily:'Not Collected',
+    credits: 1,
+  };
   }
- });
-
-
-client.on('ready', () => {
-  client.user.setPresence('dnd')
-    client.user.setGame(`#help | Servers: ${client.guilds.size} `, "https://www.twitch.tv/Jan0oo")
-	console.log(`Logged In As ${client.user.tag}!`);
-	console.log('Ready! Go,');
-	console.log('By RG, Jan0ooo.#0001')
- });
-
-
-client.on('message', message => {let prefix = "!";
-if(message.content.startsWith(prefix + "sug")) {
-      message.delete()
-
-const args = message.content.slice(prefix.length).trim().split(/ +/g);
-
-  var suggestMessage = args.slice(1).join(" ")
-  if(!suggestMessage) return message.reply("Please make a suggestion")
-  let suggestsEMBED = new Discord.RichEmbed()
-   .setColor('#0028db')
-   .setTitle(" Suggestion ! ")
-   .setDescription(`**${suggestMessage}**`)
-   .setFooter(` Proposed : ${message.author.tag}`)
-  
-       let suggests = message.guild.channels.find(ch => ch.name === "suggestions");
-                   if (!suggests) return message.reply("يرجى صنع روم بأسم : suggestions")
-               suggests.send(suggestsEMBED);
+  if(men) {
+message.channel.send(`** ${men.username}, :credit_card: balance` + " is `" + `${profile[men.id].credits}$` + "`.**")
+} else {
+  message.channel.send(`** ${message.author.username}, your :credit_card: balance` + " is `" + `${profile[message.author.id].credits}$` + "`.**")
 }
+}
+ 
+if(message.content.startsWith(prefix + "daily")) {
+  if(profile[message.author.id].lastDaily != moment().format('day')) {
+    profile[message.author.id].lastDaily = moment().format('day')
+    profile[message.author.id].credits += 200
+     message.channel.send(`**${message.author.username} you collect your \`200\` :dollar: daily pounds**`)
+} else {
+    message.channel.send(`**:stopwatch: | ${message.author.username}, your daily :yen: credits refreshes ${moment().endOf('day').fromNow()}**`)
+}
+  }
+ 
+ let cont = message.content.slice(prefix.length).split(" ");
+let args = cont.slice(1);
+let sender = message.author
+if(message.content.startsWith(prefix + 'trans')) {
+          if (!args[0]) {
+            message.channel.send(`**Usage: ${prefix}trans @someone amount**`);
+         return;
+           }
+        // We should also make sure that args[0] is a number
+        if (isNaN(args[2]) || args[2] < 0) {
+            message.channel.send(`**Usage: ${prefix}trans @someone amount**`);
+            return; // Remember to return if you are sending an error message! So the rest of the code doesn't run.
+             }
+            let defineduser = '';
+            let firstMentioned = message.mentions.users.first();
+            defineduser = (firstMentioned)
+            if (!defineduser) return message.channel.send(`**Usage: ${prefix}trans @someone amount**`);
+            var mentionned = message.mentions.users.first();
+if (!profile[sender.id]) profile[sender.id] = {}
+if (!profile[sender.id].credits) profile[sender.id].credits = 200;
+fs.writeFile('profile.json', JSON.stringify(profile), (err) => {
+if (err) console.error(err);
 })
+      var mando = message.mentions.users.id;
+      if  (!profile[defineduser.id]) profile[defineduser.id] = {}
+      if (!profile[defineduser.id].credits) profile[defineduser.id].credits = 200;
+      profile[defineduser.id].credits += (+args[0]);
+      profile[sender.id].credits += (-args[0]);
+      let mariam = message.author.username
+message.channel.send(`**:moneybag: | ${message.author.username}, has transferrerd ` + "`" + args[0] + "$` to " + `<@${defineduser.id}>**`)
+}
+ 
+      });
+ 
+      client.on('message', message => {
+          if(!profile[message.author.id]) profile[message.author.id] ={
+              points: 0,
+              level: 1
+          };
+          if(message.author.bot) return;
+          profile[message.author.id].points = Math.floor(profile[message.author.id].points+1);
+          if(profile[message.author.id].points > 100) {
+              profile[message.author.id].points = 0
+              profile[message.author.id].level = Math.floor(profile[message.author.id].level+1);
+              message.channel.send(`**${message.author.username}, You leveld up to __${profile[message.author.id].level}__**`)
+          }
+          fs.writeFile('profile.json', JSON.stringify(profile), (err) => {
+if (err) console.error(err);
+})
+      });
+ 
+    client.on('message', message => {
+        let tit = message.content.split(" ").slice(1).join(" ");
+        if(message.content.startsWith(prefix + "title")) {
+        if(!profile[message.author.id].tite) profile[message.author.id].tite = "Hey im using Super"
+        if(!tit) {
+            message.channel.send("**Usage: <title <something>**");
+        } else {
+            profile[message.author.id].tite = tit
+            message.channel.send(`:ok:`)
+        }
+        }
+        fs.writeFile('profile.json', JSON.stringify(profile), (err) => {
+if (err) console.error(err);
+})
+    })
 
-
-client.on('message', message => {
-            if (message.content.startsWith("$botinfo")) {
-     let embed = new Discord.RichEmbed()
-.addField(' Server.s',`[${client.guilds.size}]  `)
-.addField(' Members ',` [${client.users.size}] `)
-.addField('Channel ',`[${client.channels.size}]`) 
-.addField(' Ping ',`[${Date.now() - message.createdTimestamp}]`) 
-.addField(' S2ud ')
-.setColor('#c21725')
-  message.channel.sendEmbed(embed);
+ 
+client.on('message', function(msg) {
+    if(msg.content.startsWith ('$profile')) {
+      let embed = new Discord.RichEmbed()
+      .setColor('RANDOM')
+            .setAuthor(client.user.username,client.user.avatarURL)
+            .setThumbnail(client.user.avatarURL)
+      .addField('`Name`',`${msg.author.username}`,true)
+      .addField('`credits`',`$${profile[msg.author.id].credits}`,true)
+      .addField('`points`',`${profile[msg.author.id].points}`,true)
+      .addField('`level`',`${profile[msg.author.id].level}`,true)
+      .addField('`tite`',`${profile[msg.author.id].tite}`,true)
+      .addField('`reps`',`+${profile[msg.author.id].rep}`,true)
+      msg.channel.send({embed:embed})
     }
 });
-
-
-client.on('ready', () => {
-  client.user.setPresence('dnd')
-    client.user.setGame(`!help | Server : ${client.guilds.size} `)
-	console.log(`Logged In As ${client.user.tag}!`);
-	console.log('Ready! Go,');
-	console.log('By RG, Jan0ooo.#0001')
- });
-
-
-client.on('message', msg => { ///////////// Galal , ALPHA CODES 
-
-  const at_reply = ('<@' + msg.author.id + '>  '); ///////////// Galal , ALPHA CODES 
-
-  if (msg.author.bot) return; ///////////// Galal , ALPHA CODES 
-
-  if (msg.content === prefix + '123123123123123123123') { ///////////// Galal , ALPHA CODES 
-      msg.channel.send(at_reply + 'pong  ' + `${ Math.round(client.ping) }` + 'ms');
-      console.log('pong  ' + `${ Math.round(client.ping) }` + 'ms');
-  };
- 
-  if (msg.content === prefix + 'avatar') { ///////////// Galal , ALPHA CODES 
-      msg.channel.send(at_reply + msg.author.avatarURL); ///////////// Galal , ALPHA CODES 
-  };
-
-  if (msg.content === prefix + '123123123123') { ///////////// Galal , ALPHA CODES  
-      msg.channel.send(at_reply + msg.author.id); ///////////// Galal , ALPHA CODES 
-  };
-
-  if (msg.content === prefix + '123123123123') { ///////////// Galal , ALPHA CODES 
-      msg.channel.send(at_reply + msg.channel.name + '  ' + '<' + msg.channel.id + '>'); ///////////// Galal , ALPHA CODES 
-  }; ///////////// Galal , ALPHA CODES 
- 
-}); ///////////// Galal , ALPHA CODES
-
-
-client.on('message', message => {
-   let embed = new Discord.RichEmbed()
-
-    let args = message.content.split(' ').slice(1).join(' ');
-     if(!message.channel.guild) return;
-if(message.content.split(' ')[0] == '!bcowner1') {
-         message.react("✔️")
-          let embed = new Discord.RichEmbed()
-    .setColor("#FF00FF")
-    .setThumbnail(message.author.avatarURL)   
-                                      .addField('تم الارسال بواسطة :', "<@" + message.author.id + ">")
-                 message.channel.sendEmbed(embed);
-        message.guild.members.forEach(m => {
-            var bc = new Discord.RichEmbed()
-.addField('**● Sender  :**', `**__ → ${message.author.username}#${message.author.discriminator}__**`)
-            .addField('**● Server  :**', `**__ → ${message.guild.name}__**`)               
-    .setColor('#ff0000')
-                 .addField('ّ', args)
-            m.send(``,{embed: bc});
-        });
-    }
-})
 
 
 client.login(process.env.BOT_TOKEN);
